@@ -1,135 +1,142 @@
-const mascots = ['🐰', '🐻', '🐶', '🐱', '🐼', '🦊'];
-const items = ['🍎', '🍌', '🍓', '🥕', '🍪', '⭐'];
+const mascots = ['🐰', '🐱', '🐶', '🐼', '🦊'];
+const symbols = ['🍎', '🍓', '🌟', '🧁', '🎈'];
 
 let score = 0;
 let currentAnswer = 0;
 let currentSpokenQuestion = '';
+let currentMode = 'add';
+let movedToNext = false;
 let nextQuestionTimeout = null;
 
 const scoreEl = document.getElementById('score');
 const mascotEl = document.getElementById('mascot');
-const bubbleEl = document.getElementById('speech-bubble');
-const questionEl = document.getElementById('question-text');
-const visualEl = document.getElementById('visual-items');
-const optionsEl = document.getElementById('options-container');
+const bubbleEl = document.getElementById('bubble');
+const questionTextEl = document.getElementById('question-text');
+const visualItemsEl = document.getElementById('visual-items');
+const choicesEl = document.getElementById('choices');
 const speakBtn = document.getElementById('speak-btn');
-
-function speakText(text, onEndCallback = null) {
-  try {
-    if ('speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = 'ar-SA';
-      utterance.rate = 0.85;
-      utterance.pitch = 1.1;
-
-      if (onEndCallback) {
-        utterance.onend = onEndCallback;
-      }
-
-      window.speechSynthesis.speak(utterance);
-    } else if (onEndCallback) {
-      setTimeout(onEndCallback, 3500);
-    }
-  } catch (e) {
-    if (onEndCallback) {
-      setTimeout(onEndCallback, 3500);
-    }
-  }
-}
+const modeButtons = document.querySelectorAll('.mode-btn');
 
 function playSound(type) {
   try {
-    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-    if (!AudioContextClass) return;
-
-    const audioCtx = new AudioContextClass();
-    const oscillator = audioCtx.createOscillator();
-    const gainNode = audioCtx.createGain();
-
-    oscillator.connect(gainNode);
-    gainNode.connect(audioCtx.destination);
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    if (!AudioCtx) return;
+    const ctx = new AudioCtx();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain);
+    gain.connect(ctx.destination);
 
     if (type === 'win') {
-      oscillator.type = 'triangle';
-      oscillator.frequency.setValueAtTime(523.25, audioCtx.currentTime);
-      oscillator.frequency.setValueAtTime(659.25, audioCtx.currentTime + 0.12);
-      oscillator.frequency.setValueAtTime(783.99, audioCtx.currentTime + 0.24);
-      gainNode.gain.setValueAtTime(0.2, audioCtx.currentTime);
-      oscillator.start();
-      oscillator.stop(audioCtx.currentTime + 0.45);
+      osc.frequency.setValueAtTime(523.25, ctx.currentTime);
+      osc.frequency.setValueAtTime(659.25, ctx.currentTime + 0.12);
+      osc.frequency.setValueAtTime(783.99, ctx.currentTime + 0.24);
     } else {
-      oscillator.type = 'sine';
-      oscillator.frequency.setValueAtTime(300, audioCtx.currentTime);
-      oscillator.frequency.setValueAtTime(250, audioCtx.currentTime + 0.18);
-      gainNode.gain.setValueAtTime(0.15, audioCtx.currentTime);
-      oscillator.start();
-      oscillator.stop(audioCtx.currentTime + 0.35);
+      osc.frequency.setValueAtTime(260, ctx.currentTime);
+      osc.frequency.setValueAtTime(195, ctx.currentTime + 0.16);
     }
+
+    gain.gain.setValueAtTime(0.12, ctx.currentTime);
+    osc.start();
+    osc.stop(ctx.currentTime + 0.35);
   } catch (e) {
-    // تجاهل أي خطأ صوتي حتى لا يوقف اللعبة
+    // تجاهل إذا منع المتصفح الصوت قبل التفاعل
   }
+}
+
+function speakText(text, onDone) {
+  if (!('speechSynthesis' in window)) {
+    if (typeof onDone === 'function') onDone();
+    return;
+  }
+  window.speechSynthesis.cancel();
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.lang = 'ar-SA';
+  utterance.rate = 0.95;
+  if (typeof onDone === 'function') {
+    utterance.onend = onDone;
+  }
+  window.speechSynthesis.speak(utterance);
+}
+
+function buildMathPair() {
+  if (currentMode === 'sub') {
+    const a = Math.floor(Math.random() * 8) + 2; // 2 إلى 9
+    const b = Math.floor(Math.random() * (a + 1)); // 0 إلى a لتجنب السالب
+    return {
+      a,
+      b,
+      operator: '-',
+      answer: a - b,
+      spoken: `كم يساوي ${a} ناقص ${b}؟`
+    };
+  }
+
+  const a = Math.floor(Math.random() * 6) + 1; // 1 إلى 6
+  const b = Math.floor(Math.random() * 6) + 1; // 1 إلى 6
+  return {
+    a,
+    b,
+    operator: '+',
+    answer: a + b,
+    spoken: `كم يساوي ${a} زائد ${b}؟`
+  };
+}
+
+function buildChoices(correctAnswer) {
+  const set = new Set([correctAnswer]);
+  while (set.size < 4) {
+    const delta = Math.floor(Math.random() * 5) - 2; // -2 إلى +2
+    const candidate = Math.max(0, correctAnswer + delta);
+    set.add(candidate);
+  }
+  return Array.from(set).sort(() => Math.random() - 0.5);
 }
 
 function generateQuestion() {
-  if (nextQuestionTimeout) {
-    clearTimeout(nextQuestionTimeout);
-    nextQuestionTimeout = null;
+  movedToNext = false;
+  clearTimeout(nextQuestionTimeout);
+
+  const pair = buildMathPair();
+  currentAnswer = pair.answer;
+  currentSpokenQuestion = pair.spoken;
+
+  const symbol = symbols[Math.floor(Math.random() * symbols.length)];
+  const mascot = mascots[Math.floor(Math.random() * mascots.length)];
+
+  if (mascotEl) mascotEl.textContent = mascot;
+  if (questionTextEl) {
+    questionTextEl.textContent = `كم يساوي: ${pair.a} ${pair.operator} ${pair.b} ؟`;
+  }
+  if (visualItemsEl) {
+    const leftGroup = symbol.repeat(pair.a);
+    const rightGroup = pair.b > 0 ? symbol.repeat(pair.b) : '0';
+    visualItemsEl.textContent = `${leftGroup} ${pair.operator} ${rightGroup}`;
   }
 
-  mascotEl.classList.remove('happy');
-
-  const randomMascot = mascots[Math.floor(Math.random() * mascots.length)];
-  const randomItem = items[Math.floor(Math.random() * items.length)];
-  mascotEl.textContent = randomMascot;
-
-  const num1 = Math.floor(Math.random() * 5) + 1;
-  const num2 = Math.floor(Math.random() * 5) + 1;
-  currentAnswer = num1 + num2;
-
-  questionEl.textContent = `كم يساوي: ${num1} + ${num2} ؟`;
-  visualEl.textContent = `${randomItem.repeat(num1)} + ${randomItem.repeat(num2)}`;
-  bubbleEl.textContent = 'عدّ الأشكال لمساعدتي في معرفة الجواب!';
-
-  currentSpokenQuestion = `كم يساوي ${num1} زائد ${num2} ؟`;
-  speakText(currentSpokenQuestion);
-
-  generateOptions(currentAnswer);
-}
-
-function generateOptions(correct) {
-  optionsEl.innerHTML = '';
-  const choices = [correct];
-
-  while (choices.length < 3) {
-    const wrong = Math.floor(Math.random() * 10) + 1;
-    if (!choices.includes(wrong)) {
-      choices.push(wrong);
-    }
+  if (choicesEl) {
+    choicesEl.innerHTML = '';
+    const options = buildChoices(pair.answer);
+    options.forEach((opt) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'choice-btn';
+      btn.textContent = opt;
+      btn.onclick = () => checkAnswer(opt);
+      choicesEl.appendChild(btn);
+    });
   }
-
-  choices.sort(() => Math.random() - 0.5);
-
-  choices.forEach((choice) => {
-    const btn = document.createElement('button');
-    btn.classList.add('option-btn');
-    btn.textContent = choice;
-    btn.onclick = () => checkAnswer(choice);
-    optionsEl.appendChild(btn);
-  });
 }
 
 function checkAnswer(selected) {
   if (selected === currentAnswer) {
+    score += 1;
+    if (scoreEl) scoreEl.textContent = score;
     playSound('win');
-    score += 10;
-    scoreEl.textContent = score;
-    mascotEl.classList.add('happy');
 
-    const winMsg = 'رائع! إجابة صحيحة يا عبقري';
-    bubbleEl.textContent = `${winMsg} 🎉`;
+    const winMsg = 'أحسنت يا بطل! إجابة صحيحة!';
+    if (bubbleEl) bubbleEl.textContent = `${winMsg} 🌟`;
 
-    let movedToNext = false;
     const goNext = () => {
       if (!movedToNext) {
         movedToNext = true;
@@ -138,17 +145,31 @@ function checkAnswer(selected) {
       }
     };
 
-    nextQuestionTimeout = setTimeout(goNext, 4000);
+    nextQuestionTimeout = setTimeout(goNext, 3500);
     speakText(winMsg, () => {
-      setTimeout(goNext, 800);
+      setTimeout(goNext, 700);
     });
   } else {
     playSound('lose');
-    const tryMsg = 'حاول مرة أخرى، أنا أثق بك';
-    bubbleEl.textContent = `${tryMsg} 💪`;
+    const tryMsg = 'حاول مرة أخرى، أنا أثق بك!';
+    if (bubbleEl) bubbleEl.textContent = `${tryMsg} 💪`;
     speakText(tryMsg);
   }
 }
+
+modeButtons.forEach((btn) => {
+  btn.addEventListener('click', () => {
+    currentMode = btn.dataset.mode;
+    modeButtons.forEach((b) => b.classList.toggle('active', b === btn));
+    if (bubbleEl) {
+      bubbleEl.textContent =
+        currentMode === 'add'
+          ? 'اخترنا الجمع (+) — هيا نحسب معاً!'
+          : 'اخترنا الطرح (-) — ركّز جيداً يا بطل!';
+    }
+    generateQuestion();
+  });
+});
 
 if (speakBtn) {
   speakBtn.onclick = () => speakText(currentSpokenQuestion);
