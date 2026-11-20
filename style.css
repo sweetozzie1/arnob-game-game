@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap');
+
+body {
+  font-family: 'Cairo', sans-serif;
+  background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+}
+
+.game-container {
+  background: #ffffff;
+  width: 90%;
+  max-width: 550px;
+  border-radius: 30px;
+  padding: 25px;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+  text-align: center;
+  border: 6px solid #ffd166;
+}
+
+.header h1 {
+  color: #ef476f;
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+}
+
+.score-board {
+  background: #06d6a0;
+  color: white;
+  display: inline-block;
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-size: 1.2rem;
+}
+
+.mascot-area {
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.mascot {
+  font-size: 5rem;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.mascot.happy {
+  animation: bounce 0.6s infinite alternate;
+}
+
+@keyframes bounce {
+  from { transform: translateY(0); }
+  to { transform: translateY(-20px); }
+}
+
+.speech-bubble {
+  background: #f8f9fa;
+  border: 3px dashed #118ab2;
+  padding: 10px 20px;
+  border-radius: 20px;
+  color: #073b4c;
+  margin-top: 10px;
+  font-size: 1.1rem;
+}
+
+.question-box {
+  background: #fff3b0;
+  padding: 15px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+}
+
+.speak-btn {
+  background: #ffd166;
+  color: #073b4c;
+  border: 2px solid #f4a261;
+  padding: 6px 15px;
+  border-radius: 15px;
+  font-family: 'Cairo', sans-serif;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 8px;
+  transition: transform 0.2s;
+}
+
+.speak-btn:hover {
+  transform: scale(1.05);
+  background: #fcbf49;
+}
+
+#question-text {
+  font-size: 1.8rem;
+  color: #073b4c;
+  margin: 5px 0;
+}
+
+.visual-items {
+  font-size: 2rem;
+  letter-spacing: 5px;
+}
+
+.options-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+
+.option-btn {
+  background: #118ab2;
+  color: white;
+  border: none;
+  padding: 15px;
+  font-size: 1.8rem;
+  font-family: 'Cairo', sans-serif;
+  border-radius: 20px;
+  cursor: pointer;
+  box-shadow: 0 5px 0 #073b4c;
+  transition: transform 0.1s;
+}
+
+.option-btn:active {
+  transform: translateY(5px);
+  box-shadow: none;
+}
