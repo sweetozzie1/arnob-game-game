@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مطابقة الحروف</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body onload="initMatchPage()">
+    <header>
+        <h1>🧩 مطابقة الحرف الكبير والصغير</h1>
+        <div class="score-badge">النقاط: <span id="matchScore">0</span></div>
+        <a href="index.html" class="back-btn">الرئيسية 🏠</a>
+    </header>
+
+    <div class="container">
+        <h2>اختر الحرف الصغير المطابق للحرف التالي:</h2>
+        <div class="quiz-emoji" id="bigLetterDisplay" style="color: #ff6b6b; font-weight: bold;">A</div>
+        
+        <div class="options-grid" id="matchOptions"></div>
+        <div class="feedback" id="matchFeedback"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

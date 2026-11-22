@@ -1,38 +1,58 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>مغامرة الأرقام مع أرنوب</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عالم الحروف الإنجليزية</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <main class="game-container">
-    <header class="game-header">
-      <h1>مغامرة الأرقام مع أرنوب 🐰🐾</h1>
-      <div class="score-badge">النقاط: <span id="score">0</span> ⭐</div>
+    <header>
+        <h1>🌟 عالم الحروف الإنجليزية 🌟</h1>
+        <div class="total-stars">⭐ مجموع نجومك: <span id="globalStars">0</span></div>
     </header>
 
-    <section class="mascot-box">
-      <div id="mascot" class="mascot">🐰</div>
-      <p id="bubble" class="bubble">مرحباً يا بطل! اختر الإجابة الصحيحة!</p>
-    </section>
+    <div class="container">
+        <h2>اختر المرحلة التي تريد اللعب بها:</h2>
+        <div class="menu-grid">
+            <a href="learn.html" class="menu-card">
+                <div class="menu-icon">🔤</div>
+                <h3>1. تعلم الحروف</h3>
+                <p>اضغط على الحرف واستمع لنطقه</p>
+            </a>
 
-    <div class="mode-selector" role="group" aria-label="اختر نوع العملية">
-      <button type="button" class="mode-btn active" data-mode="add">جمع (+)</button>
-      <button type="button" class="mode-btn" data-mode="sub">طرح (-)</button>
+            <a href="quiz.html" class="menu-card">
+                <div class="menu-icon">🎯</div>
+                <h3>2. تحدي الصور</h3>
+                <p>اختر الحرف الصحيح للصورة</p>
+            </a>
+
+            <a href="match.html" class="menu-card">
+                <div class="menu-icon">🧩</div>
+                <h3>3. لعبة المطابقة</h3>
+                <p>طابق الحرف الكبير مع الصغير</p>
+            </a>
+
+            <a href="draw.html" class="menu-card">
+                <div class="menu-icon">🎨</div>
+                <h3>4. اكتب ولوّن</h3>
+                <p>تتبع الحروف وارسمها بألوانك</p>
+            </a>
+
+            <a href="song.html" class="menu-card">
+                <div class="menu-icon">🎵</div>
+                <h3>5. أنشودة الحروف</h3>
+                <p>استمع وتابع إضاءة الحروف</p>
+            </a>
+
+            <a href="rewards.html" class="menu-card">
+                <div class="menu-icon">🏆</div>
+                <h3>6. جوائزي</h3>
+                <p>افتح الملصقات السرية بنجومك</p>
+            </a>
+        </div>
     </div>
 
-    <section class="question-box">
-      <div class="question-top">
-        <p id="question-text" class="question-text">كم يساوي: 2 + 3 ؟</p>
-        <button id="speak-btn" type="button" class="speak-btn">🔊 اسمع السؤال</button>
-      </div>
-      <div id="visual-items" class="visual-items"></div>
-      <div id="choices" class="choices"></div>
-    </section>
-  </main>
-
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
