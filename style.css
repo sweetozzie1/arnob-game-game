@@ -1,187 +1,243 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@600;800;900&display=swap');
+
+:root {
+    --paper-bg: #FAF6F0;
+    --card-bg: #FFFFFF;
+    --ink-dark: #262322;
+    --primary-orange: #E86A33;
+    --secondary-teal: #2A9D8F;
+    --accent-yellow: #F4A261;
+    --border-ink: #262322;
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Cairo', sans-serif;
 }
 
 body {
-    background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+    background-color: var(--paper-bg);
+    /* خلفية منقطة خفيفة تشبه دفاتر الرسم */
+    background-image: radial-gradient(#d8cfc2 1.5px, transparent 1.5px);
+    background-size: 24px 24px;
+    color: var(--ink-dark);
     min-height: 100vh;
+    padding: 24px 16px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 20px;
 }
 
-header {
+/* الشريط العلوي */
+.top-bar {
     width: 100%;
-    max-width: 900px;
+    max-width: 920px;
+    background: var(--card-bg);
+    border: 3px solid var(--border-ink);
+    border-radius: 16px;
+    box-shadow: 5px 5px 0px var(--border-ink);
+    padding: 14px 24px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: white;
-    padding: 15px 25px;
-    border-radius: 20px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-    margin-bottom: 30px;
+    margin-bottom: 28px;
 }
 
-header h1 {
-    color: #ff6b6b;
-    font-size: 1.6rem;
+.top-bar h1 {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: var(--primary-orange);
 }
 
-.back-btn {
+.stars-pill {
+    background: #FFF3B0;
+    border: 2.5px solid var(--border-ink);
+    padding: 6px 16px;
+    border-radius: 50px;
+    font-weight: 800;
+    font-size: 1.05rem;
+    box-shadow: 2px 2px 0px var(--border-ink);
+}
+
+.home-link {
     text-decoration: none;
-    background: #4ecdc4;
+    background: var(--secondary-teal);
     color: white;
-    padding: 10px 20px;
+    border: 2.5px solid var(--border-ink);
+    padding: 6px 18px;
     border-radius: 12px;
-    font-weight: bold;
-    transition: 0.3s;
+    font-weight: 800;
+    box-shadow: 3px 3px 0px var(--border-ink);
+    transition: transform 0.1s;
 }
 
-.back-btn:hover {
-    background: #3bb5ad;
-    transform: scale(1.05);
+.home-link:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0px var(--border-ink);
 }
 
-.container {
+/* الصندوق الرئيسي */
+.notebook-sheet {
     width: 100%;
-    max-width: 900px;
-    background: rgba(255, 255, 255, 0.9);
-    padding: 30px;
-    border-radius: 25px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    max-width: 920px;
+    background: var(--card-bg);
+    border: 3px solid var(--border-ink);
+    border-radius: 20px;
+    box-shadow: 7px 7px 0px var(--border-ink);
+    padding: 32px 24px;
     text-align: center;
 }
 
-/* بطاقات القائمة الرئيسية */
-.menu-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 20px;
-    margin-top: 25px;
+.section-title {
+    font-size: 1.4rem;
+    font-weight: 800;
+    margin-bottom: 24px;
+    display: inline-block;
+    background: #FFE8D6;
+    padding: 6px 20px;
+    border-radius: 10px;
+    border: 2px dashed var(--primary-orange);
 }
 
-.menu-card {
-    background: white;
-    border-radius: 20px;
-    padding: 30px 20px;
+/* شبكة القائمة الرئيسية */
+.stages-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.stage-card {
+    background: #FFFDF9;
+    border: 3px solid var(--border-ink);
+    border-radius: 18px;
+    padding: 24px 18px;
     text-decoration: none;
-    color: #333;
-    border: 4px solid #ffe66d;
-    transition: transform 0.3s, box-shadow 0.3s;
+    color: var(--ink-dark);
+    box-shadow: 5px 5px 0px var(--border-ink);
+    transition: all 0.15s ease;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 15px;
+    gap: 10px;
 }
 
-.menu-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 25px rgba(0,0,0,0.15);
-    border-color: #ff6b6b;
+.stage-card:hover {
+    transform: translate(-2px, -3px);
+    box-shadow: 8px 8px 0px var(--primary-orange);
+    border-color: var(--primary-orange);
 }
 
-.menu-icon {
-    font-size: 4rem;
+.stage-badge {
+    font-size: 3.4rem;
+    line-height: 1;
 }
 
-/* شبكة الحروف في صفحة التعلم */
-.letters-grid {
+.stage-card h3 {
+    font-size: 1.25rem;
+    font-weight: 900;
+}
+
+.stage-card p {
+    font-size: 0.95rem;
+    color: #555;
+    font-weight: 600;
+}
+
+/* بطاقات الحروف العربية */
+.arabic-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
-    gap: 15px;
+    grid-template-columns: repeat(auto-fill, minmax(115px, 1fr));
+    gap: 16px;
+    direction: rtl;
 }
 
-.letter-box {
-    background: #fff;
-    border: 3px solid #4ecdc4;
-    border-radius: 18px;
-    padding: 15px;
+.letter-tile {
+    background: #FFFDF9;
+    border: 2.5px solid var(--border-ink);
+    border-radius: 14px;
+    padding: 14px 10px;
     cursor: pointer;
-    transition: 0.2s;
+    box-shadow: 4px 4px 0px var(--border-ink);
+    transition: 0.15s;
 }
 
-.letter-box:hover {
-    background: #ffe66d;
-    transform: scale(1.08);
+.letter-tile:hover {
+    background: #FFF3B0;
+    transform: translateY(-3px);
 }
 
-.letter-box h2 {
-    font-size: 2.2rem;
-    color: #ff6b6b;
+.letter-tile .big-char {
+    font-size: 2.6rem;
+    font-weight: 900;
+    color: var(--primary-orange);
+    line-height: 1.1;
 }
 
-.letter-box span {
+.letter-tile .emoji-pic {
     font-size: 2rem;
-    display: block;
-    margin: 5px 0;
+    margin: 6px 0;
 }
 
-/* أزرار الاختبار والمطابقة */
-.quiz-emoji {
-    font-size: 6rem;
-    margin: 20px 0;
+.letter-tile .word-label {
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--ink-dark);
 }
 
-.options-grid {
+/* أزرار اللعب */
+.choices-row {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 18px;
     flex-wrap: wrap;
-    margin-top: 20px;
+    margin-top: 24px;
 }
 
-.option-btn {
-    background: #ff6b6b;
-    color: white;
-    border: none;
-    padding: 18px 35px;
-    font-size: 1.8rem;
-    font-weight: bold;
-    border-radius: 15px;
+.choice-btn {
+    background: #FFFDF9;
+    color: var(--ink-dark);
+    border: 3px solid var(--border-ink);
+    box-shadow: 4px 4px 0px var(--border-ink);
+    padding: 14px 32px;
+    font-size: 2rem;
+    font-weight: 900;
+    border-radius: 14px;
     cursor: pointer;
-    transition: 0.2s;
+    transition: 0.12s;
 }
 
-.option-btn:hover {
-    background: #ff5252;
-    transform: scale(1.05);
+.choice-btn:hover {
+    background: #FFE8D6;
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px var(--border-ink);
 }
 
-.feedback {
+.choice-btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0px var(--border-ink);
+}
+
+.big-display {
+    font-size: 5.5rem;
+    margin: 15px 0;
+    font-weight: 900;
+}
+
+.status-msg {
     margin-top: 20px;
-    font-size: 1.5rem;
-    font-weight: bold;
-    min-height: 35px;
+    font-size: 1.3rem;
+    font-weight: 800;
+    min-height: 36px;
 }
 
-.score-badge {
-    background: #ffe66d;
-    padding: 8px 18px;
-    border-radius: 15px;
-    font-weight: bold;
-    color: #333;
-}
-/* شريط النقاط العلوي في الرئيسية */
-.total-stars {
-    background: #ffe66d;
-    color: #333;
-    padding: 8px 20px;
-    border-radius: 20px;
-    font-weight: bold;
-    font-size: 1.2rem;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-
-/* لوحة الرسم والكتابة */
-#drawCanvas {
-    background: #ffffff;
-    border: 4px dashed #4ecdc4;
-    border-radius: 20px;
+/* كراسة الرسم */
+#arabicCanvas {
+    background: #FFFDF9;
+    border: 3px solid var(--border-ink);
+    border-radius: 16px;
+    box-shadow: 5px 5px 0px var(--border-ink);
     cursor: crosshair;
     touch-action: none;
     margin: 15px auto;
@@ -189,59 +245,78 @@ header h1 {
     max-width: 100%;
 }
 
-.color-palette {
+.pens-bar {
     display: flex;
     justify-content: center;
     gap: 12px;
-    margin: 15px 0;
+    margin-bottom: 10px;
 }
 
-.color-dot {
-    width: 38px;
-    height: 38px;
+.pen-btn {
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
-    border: 3px solid white;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+    border: 2.5px solid var(--border-ink);
+    box-shadow: 2px 2px 0px var(--border-ink);
     cursor: pointer;
-    transition: transform 0.2s;
+}/* إشعار الشكر الخاص في الصفحة الرئيسية */
+.special-thanks-box {
+    width: 100%;
+    max-width: 920px;
+    background: #FFF3B0;
+    border: 3px solid var(--border-ink);
+    border-radius: 18px;
+    box-shadow: 6px 6px 0px var(--border-ink);
+    padding: 20px 24px;
+    margin-bottom: 24px;
+    text-align: center;
 }
 
-.color-dot:hover {
-    transform: scale(1.2);
+.special-badge {
+    display: inline-block;
+    background: var(--primary-orange);
+    color: white;
+    border: 2px solid var(--border-ink);
+    padding: 3px 14px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 800;
+    margin-bottom: 8px;
 }
 
-/* بطاقات الأغنية والجوائز */
-.song-letter {
-    background: white;
-    border: 3px solid #a8edea;
-    border-radius: 15px;
-    padding: 15px;
-    font-size: 2rem;
-    font-weight: bold;
-    color: #333;
-    transition: 0.2s;
+.special-thanks-box h2 {
+    font-size: 1.45rem;
+    font-weight: 900;
+    margin-bottom: 6px;
 }
 
-.song-letter.active {
-    background: #ffe66d;
-    border-color: #ff6b6b;
-    transform: scale(1.15);
-    color: #ff6b6b;
+.special-thanks-box p {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 14px;
 }
 
-.reward-card {
-    background: white;
-    border: 3px solid #ddd;
-    border-radius: 20px;
-    padding: 20px;
-    opacity: 0.5;
+.banner-actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+/* بطاقات الجوائز */
+.arabic-medal-card {
+    background: #FFFDF9;
+    border: 3px solid var(--border-ink);
+    border-radius: 18px;
+    padding: 22px 16px;
+    box-shadow: 5px 5px 0px var(--border-ink);
+    opacity: 0.45;
     filter: grayscale(100%);
-    transition: 0.3s;
 }
 
-.reward-card.unlocked {
+.arabic-medal-card.unlocked {
     opacity: 1;
     filter: none;
-    border-color: #ffd166;
-    box-shadow: 0 8px 20px rgba(255, 209, 102, 0.4);
+    background: #FFFDF2;
+    box-shadow: 6px 6px 0px var(--secondary-teal);
 }

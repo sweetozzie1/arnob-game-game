@@ -3,30 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>اكتب ولوّن الحروف</title>
+    <title>كراسة الخط</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <h1>🎨 اكتب ولوّن الحروف</h1>
-        <a href="index.html" class="back-btn">الرئيسية 🏠</a>
-    </header>
+    <div class="top-bar">
+        <h1>🖍️ كراسة الخط</h1>
+        <a href="index.html" class="home-link">الرئيسية</a>
+    </div>
 
-    <div class="container">
-        <h2>مرر القلم فوق الحرف لتلوينه:</h2>
-        <div class="color-palette">
-            <div class="color-dot" style="background: #ff6b6b;" onclick="setPenColor('#ff6b6b')"></div>
-            <div class="color-dot" style="background: #4ecdc4;" onclick="setPenColor('#4ecdc4')"></div>
-            <div class="color-dot" style="background: #1a535c;" onclick="setPenColor('#1a535c')"></div>
-            <div class="color-dot" style="background: #ff9f1c;" onclick="setPenColor('#ff9f1c')"></div>
-            <div class="color-dot" style="background: #9b5de5;" onclick="setPenColor('#9b5de5')"></div>
+    <div class="notebook-sheet">
+        <div class="section-title">اختر لون القلم وتتبّع الحرف</div>
+        <div class="pens-bar">
+            <button class="pen-btn" style="background: #E86A33;" onclick="changePen('#E86A33')"></button>
+            <button class="pen-btn" style="background: #2A9D8F;" onclick="changePen('#2A9D8F')"></button>
+            <button class="pen-btn" style="background: #262322;" onclick="changePen('#262322')"></button>
+            <button class="pen-btn" style="background: #D62828;" onclick="changePen('#D62828')"></button>
         </div>
 
-        <canvas id="drawCanvas" width="320" height="320"></canvas>
+        <canvas id="arabicCanvas" width="320" height="320"></canvas>
 
-        <div class="options-grid">
-            <button class="option-btn" style="background:#4ecdc4; font-size:1.2rem;" onclick="clearCanvas()">مسح 🧹</button>
-            <button class="option-btn" style="font-size:1.2rem;" onclick="nextDrawLetter()">الحرف التالي ⬅️</button>
+        <div class="choices-row">
+            <button class="choice-btn" style="font-size: 1.1rem;" onclick="resetArabicCanvas()">مسح الورقة 🧹</button>
+            <button class="choice-btn" style="font-size: 1.1rem; background: #FFF3B0;" onclick="nextArabicDraw()">الحرف التالي ⬅️</button>
         </div>
     </div>
 

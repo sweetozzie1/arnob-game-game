@@ -3,52 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>عالم الحروف الإنجليزية</title>
+    <title>حكاية الحروف العربية</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <h1>🌟 عالم الحروف الإنجليزية 🌟</h1>
-        <div class="total-stars">⭐ مجموع نجومك: <span id="globalStars">0</span></div>
-    </header>
+    <div class="top-bar">
+        <h1>📖 حكاية الحروف العربية</h1>
+        <div class="stars-pill">⭐ نجومي: <span id="totalStars">0</span></div>
+    </div>
 
-    <div class="container">
-        <h2>اختر المرحلة التي تريد اللعب بها:</h2>
-        <div class="menu-grid">
-            <a href="learn.html" class="menu-card">
-                <div class="menu-icon">🔤</div>
-                <h3>1. تعلم الحروف</h3>
-                <p>اضغط على الحرف واستمع لنطقه</p>
+    <!-- إشعار الشكر الخاص عند بلوغ 150 نجمة فأكثر -->
+    <div id="specialThanksBanner" class="special-thanks-box" style="display: none;">
+        <div class="special-badge">🏅 وسام التميز الذهبي</div>
+        <h2>شكر خاص لك يا بطل الحروف!</h2>
+        <p>لقد جمعت <strong id="bannerStarsCount">150</strong> نجمة! اجتهادك وحبك لتعلم الحروف العربية يستحق كل الفخر والتقدير.</p>
+        <div class="banner-actions">
+            <a href="rewards.html" class="home-link" style="background: #E86A33;">شاهد جوائزك 🏆</a>
+            <button type="button" class="choice-btn" style="font-size: 0.95rem; padding: 6px 16px;" onclick="dismissThanksBanner()">إخفاء الإشعار</button>
+        </div>
+    </div>
+
+    <div class="notebook-sheet">
+        <div class="section-title">اختر مغامرتك اليوم</div>
+        <div class="stages-grid">
+            <a href="learn.html" class="stage-card">
+                <div class="stage-badge">🪴</div>
+                <h3>حديقة الحروف</h3>
+                <p>تعرّف على الحروف من الألف للياء بالصوت</p>
             </a>
 
-            <a href="quiz.html" class="menu-card">
-                <div class="menu-icon">🎯</div>
-                <h3>2. تحدي الصور</h3>
-                <p>اختر الحرف الصحيح للصورة</p>
+            <a href="forms.html" class="stage-card">
+                <div class="stage-badge">🧩</div>
+                <h3>أشكال الحرف</h3>
+                <p>كيف يُكتب الحرف في أول ووسط وآخر الكلمة؟</p>
             </a>
 
-            <a href="match.html" class="menu-card">
-                <div class="menu-icon">🧩</div>
-                <h3>3. لعبة المطابقة</h3>
-                <p>طابق الحرف الكبير مع الصغير</p>
+            <a href="harakat.html" class="stage-card">
+                <div class="stage-badge">✨</div>
+                <h3>لعبة الحركات</h3>
+                <p>ميّز بين الفتحة والضمة والكسرة بالصوت</p>
             </a>
 
-            <a href="draw.html" class="menu-card">
-                <div class="menu-icon">🎨</div>
-                <h3>4. اكتب ولوّن</h3>
-                <p>تتبع الحروف وارسمها بألوانك</p>
+            <a href="quiz.html" class="stage-card">
+                <div class="stage-badge">🎯</div>
+                <h3>تحدي الصور</h3>
+                <p>اكتشف الحرف الذي تبدأ به كل صورة</p>
             </a>
 
-            <a href="song.html" class="menu-card">
-                <div class="menu-icon">🎵</div>
-                <h3>5. أنشودة الحروف</h3>
-                <p>استمع وتابع إضاءة الحروف</p>
+            <a href="draw.html" class="stage-card">
+                <div class="stage-badge">🖍️</div>
+                <h3>كراسة الخط</h3>
+                <p>ارسم ولوّن الحروف العربية بيدك</p>
             </a>
 
-            <a href="rewards.html" class="menu-card">
-                <div class="menu-icon">🏆</div>
-                <h3>6. جوائزي</h3>
-                <p>افتح الملصقات السرية بنجومك</p>
+            <a href="rewards.html" class="stage-card">
+                <div class="stage-badge">🏆</div>
+                <h3>جوائزي</h3>
+                <p>تصفح الأوسمة التي فتحتها بنجومك</p>
             </a>
         </div>
     </div>

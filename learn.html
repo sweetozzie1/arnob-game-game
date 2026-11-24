@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تعلم الحروف</title>
+    <title>حديقة الحروف</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body onload="initLearnPage()">
-    <header>
-        <h1>🔤 تعلم الحروف والنطق</h1>
-        <a href="index.html" class="back-btn">الرئيسية 🏠</a>
-    </header>
+<body>
+    <div class="top-bar">
+        <h1>🪴 حديقة الحروف</h1>
+        <a href="index.html" class="home-link">الرئيسية</a>
+    </div>
 
-    <div class="container">
-        <p style="margin-bottom: 20px; font-size: 1.2rem;">اضغط على أي حرف لسماع صوته!</p>
-        <div class="letters-grid" id="lettersContainer"></div>
+    <div class="notebook-sheet">
+        <div class="section-title">اضغط على أي بطاقة لسماع الحرف والكلمة</div>
+        <div class="arabic-grid" id="arabicLettersGrid"></div>
     </div>
 
     <script src="script.js"></script>

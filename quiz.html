@@ -6,20 +6,19 @@
     <title>تحدي الصور</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body onload="initQuizPage()">
-    <header>
+<body>
+    <div class="top-bar">
         <h1>🎯 تحدي الصور</h1>
-        <div class="score-badge">النقاط: <span id="score">0</span></div>
-        <a href="index.html" class="back-btn">الرئيسية 🏠</a>
-    </header>
+        <div class="stars-pill">⭐ <span id="totalStars">0</span></div>
+        <a href="index.html" class="home-link">الرئيسية</a>
+    </div>
 
-    <div class="container">
-        <h2>ما هو الحرف الأول لهذه الصورة؟</h2>
-        <div class="quiz-emoji" id="quizEmoji">🍎</div>
-        <button onclick="speakCurrentWord()" style="padding: 8px 15px; border-radius: 10px; border:none; background:#4ecdc4; color:white; cursor:pointer;">🔊 اسمع الكلمة</button>
-        
-        <div class="options-grid" id="quizOptions"></div>
-        <div class="feedback" id="feedback"></div>
+    <div class="notebook-sheet">
+        <div class="section-title">بأي حرف تبدأ هذه الصورة؟</div>
+        <div class="big-display" id="quizPic">🦁</div>
+        <button class="choice-btn" style="font-size: 1.1rem; padding: 8px 20px; background: #FFF3B0;" onclick="sayCurrentArabicWord()">🔊 اسمع الكلمة</button>
+        <div class="choices-row" id="quizChoices"></div>
+        <div class="status-msg" id="quizStatus"></div>
     </div>
 
     <script src="script.js"></script>
